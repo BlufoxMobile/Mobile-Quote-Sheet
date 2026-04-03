@@ -2434,7 +2434,7 @@
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text-primary);
     background: white;
     outline: none;
@@ -5323,6 +5323,10 @@ function buildDeviceRow(lineNum, type) {
   deviceInput.type = 'text';
   deviceInput.placeholder = type === 'phone' ? 'Search phones...' : (type === 'watch' ? 'Search watches...' : 'Search tablets...');
   deviceInput.id = `${rowId}-device`;
+  deviceInput.autocomplete = 'off';
+  deviceInput.autocorrect = 'off';
+  deviceInput.autocapitalize = 'none';
+  deviceInput.spellcheck = false;
   const deviceList = document.createElement('div');
   deviceList.className = 'df-dropdown-list';
   deviceWrap.appendChild(deviceInput);
