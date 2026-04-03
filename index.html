@@ -5224,7 +5224,10 @@ function makeAutocomplete(inputEl, listEl, datasetOrFn, onSelect, maxInitial) {
         setTimeout(() => { suppressBlur = false; }, 200);
       };
       div.addEventListener('mousedown', selectItem);
-      div.addEventListener('touchstart', selectItem, { passive: false });
+      // Touch: only select on tap — finger movement (scroll) cancels selection
+      div.addEventListener('touchstart', (e) => { div._tsY = e.touches[0].clientY; div._tsMoved = false; }, { passive: true });
+      div.addEventListener('touchmove',  () => { div._tsMoved = true; }, { passive: true });
+      div.addEventListener('touchend',   (e) => { if (!div._tsMoved) selectItem(e); }, { passive: false });
       listEl.appendChild(div);
     });
     listEl.classList.add('open');
